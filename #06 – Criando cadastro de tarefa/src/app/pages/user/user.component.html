@@ -1,0 +1,63 @@
+<nb-card>
+    <nb-card-header>
+      Cadastro de Usuário
+    </nb-card-header>  
+  
+    <nb-card-body>
+        <button style="margin-bottom: 1rem;" nbButton status="primary" (click)="openModalUser(null)">Novo</button>   
+        <ng2-smart-table #ng2TbUser 
+          [settings]="tbUserConfig" 
+          [source]="tbUserData" 
+          (edit)="openModalUser($event)" 
+          (delete)="openModalExclusion($event)">          
+        </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+  
+  
+  <ng-template #dialogUser let-data let-ref="dialogRef">
+    <nb-card style="width: 25em">
+      <nb-card-header>Cadastro de Usuário ({{ findOperation() }})</nb-card-header>
+      <nb-card-body>
+        <form [formGroup]="formUser" autocomplete="off">
+          <div class="form-group">
+            <label for="name">Nome *</label>
+            <input class="form-control" id="name" formControlName="name">
+          </div>  
+  
+          <div class="form-group">
+            <label for="email">E-mail *</label>
+            <input id="email" type="email" class="form-control" formControlName="email">
+          </div>
+  
+          <div class="form-group">
+            <label for="password">Senha *</label>
+            <input id="password" type="password" class="form-control" formControlName="password">
+          </div>
+
+          <div class="form-group" [hidden]="isAdd()">
+            <label for="creation">Data Criação</label>
+            <input id="creation" class="form-control" formControlName="creation" 
+              [value]="formUser.get('creation').value | date:'dd/MM/yyyy HH:mm:ss'">
+          </div>
+        </form>
+      </nb-card-body>
+      <nb-card-footer>        
+        <button nbButton (click)="ref.close()">Cancelar</button>
+        <button class="btn-action-modal" nbButton status="primary" (click)="btnSave($event);">Salvar</button>
+      </nb-card-footer>
+    </nb-card>
+  </ng-template>
+  
+  <ng-template #dialogDelete let-data let-ref="dialogRef">
+    <nb-card>
+      <nb-card-header>Excluir Usuário</nb-card-header>
+      <nb-card-body>
+        Tem certeza que deseja excluir o usuário <span style="font-weight: bold">{{ data }}</span>?  
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="ref.close()">Cancelar</button>
+        <button class="btn-action-modal" nbButton status="danger" (click)="btnDelete($event);">Excluir</button>
+      </nb-card-footer>
+    </nb-card>
+  </ng-template>

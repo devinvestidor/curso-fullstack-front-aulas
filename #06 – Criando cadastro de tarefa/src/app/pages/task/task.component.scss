@@ -1,0 +1,19 @@
+.btn-action-modal {
+    float: right;
+    margin-left: 20px;
+}
+
+.ng-invalid {
+    &.ng-touched {
+        border-color: #f16666;
+    }
+}
+
+nb-select {
+    &.ng-invalid {
+        &.ng-touched {            
+            border: 1px solid #f16666; 
+            border-radius: 0.25rem;
+        }
+    }
+}
