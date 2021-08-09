@@ -1,0 +1,10 @@
+.btn-action-modal {
+    float: right;
+    margin-left: 20px;
+}
+
+.ng-invalid {
+    &.ng-touched {
+        border-color: #f16666;
+    }
+}

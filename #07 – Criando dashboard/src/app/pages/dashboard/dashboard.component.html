@@ -1,0 +1,62 @@
+<div class="row">
+
+    <div class="col-lg-3 col-md-12 card-dash">
+      <nb-card class="off" (click)="btnGoToMy()">
+          <div class="icon-container">
+            <div class="icon blue nb-lightbulb"></div>
+          </div>
+          <div>
+              <div class="title">Minhas</div>
+              <div class="total">{{ totalMyTask }}</div>
+          </div>
+      </nb-card>
+  </div>
+  
+  <div class="col-lg-3 col-md-12 card-dash">
+      <nb-card class="off" (click)="btnGoToOpened()">
+          <div class="icon-container">
+              <div class="icon yellow nb-alert"></div>
+          </div>
+  
+          <div>
+              <div class="title">Em Aberto</div>
+              <div class="total">{{ totalOpened }}</div>
+          </div>
+      </nb-card>
+  </div>
+  
+  <div class="col-lg-3 col-md-12 card-dash">
+      <nb-card class="off" (click)="btnGoToFinished()">
+          <div class="icon-container">
+            <div class="icon green nb-checkmark"></div>
+          </div>
+  
+          <div>
+              <div class="title">Finalizadas</div>
+              <div class="total">{{ totalFinished }}</div>
+          </div>
+      </nb-card>
+  </div>
+  
+  <div class="col-lg-3 col-md-12 card-dash">
+      <nb-card class="off" (click)="btnGoToAll()">
+          <div class="icon-container">
+            <div class="icon gray nb-grid-a-outline"></div>
+          </div>
+  
+          <div>
+              <div class="title">Todas</div>
+              <div class="total">{{ totalAll }}</div>
+          </div>
+      </nb-card>
+  </div>
+
+  <div class="col-lg-4 col-md-12 card-dash">
+    <div echarts [options]="optionMyTask"></div>    
+  </div>
+
+  <div class="col-lg-4 col-md-12 card-dash">
+    <div echarts [options]="optionTaskResponsible" ></div>    
+  </div>
+
+</div>

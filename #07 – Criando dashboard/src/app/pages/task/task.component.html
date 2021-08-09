@@ -1,0 +1,78 @@
+<nb-card>
+    <nb-card-header>
+      Cadastro de Tarefa
+    </nb-card-header>  
+  
+    <nb-card-body>
+        <button style="margin-bottom: 1rem;" nbButton status="primary" (click)="openModalTask(null)">Novo</button>   
+        <ng2-smart-table #ng2TbTask 
+          [settings]="tbTaskConfig" 
+          [source]="tbTaskData" 
+          (edit)="openModalTask($event)" 
+          (delete)="openModalExclusion($event)">          
+        </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+  
+  
+  <ng-template #dialogTask let-data let-ref="dialogRef">
+    <nb-card style="width: 25em">
+      <nb-card-header>Cadastro de Tarefa ({{ findOperation() }})</nb-card-header>
+      <nb-card-body>
+        <form [formGroup]="formTask" autocomplete="off">
+
+          <div class="form-group">
+            <label for="status">Status *</label>
+            <nb-select class="w-100" formControlName="status">
+              <nb-option *ngFor="let status of optionsStatus" [value]="status.value">
+                {{ status.name }}
+              </nb-option>
+            </nb-select>
+          </div> 
+
+          <div class="form-group">
+            <label for="description">Descrição *</label>
+            <input class="form-control" id="description" formControlName="description">
+          </div>  
+
+          <div class="form-group">
+            <label for="responsible">Responsável *</label>
+            <nb-select class="w-100" formControlName="responsible">
+              <nb-option *ngFor="let responsible of optionsResponsbible" [value]="responsible._id">
+                {{ responsible.name }}
+              </nb-option>
+            </nb-select>
+          </div>  
+
+          <div class="form-group" [hidden]="isTaskNotConcluded()">
+            <label for="concluded">Data Conclusão</label>
+            <input id="concluded" class="form-control" formControlName="concluded" 
+              [value]="formTask.get('concluded').value | date:'dd/MM/yyyy HH:mm:ss'">
+          </div> 
+
+          <div class="form-group" [hidden]="isAdd()">
+            <label for="creation">Data Criação</label>
+            <input id="creation" class="form-control" formControlName="creation" 
+              [value]="formTask.get('creation').value | date:'dd/MM/yyyy HH:mm:ss'">
+          </div>
+        </form>
+      </nb-card-body>
+      <nb-card-footer>        
+        <button nbButton (click)="ref.close()">Cancelar</button>
+        <button class="btn-action-modal" nbButton status="primary" (click)="btnSave($event);">Salvar</button>
+      </nb-card-footer>
+    </nb-card>
+  </ng-template>
+  
+  <ng-template #dialogDelete let-data let-ref="dialogRef">
+    <nb-card>
+      <nb-card-header>Excluir Tarefa</nb-card-header>
+      <nb-card-body>
+        Tem certeza que deseja excluir a tarefa <span style="font-weight: bold">{{ data }}</span>?  
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="ref.close()">Cancelar</button>
+        <button class="btn-action-modal" nbButton status="danger" (click)="btnDelete($event);">Excluir</button>
+      </nb-card-footer>
+    </nb-card>
+  </ng-template>
